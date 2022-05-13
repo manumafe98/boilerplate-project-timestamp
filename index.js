@@ -32,22 +32,11 @@ var listener = app.listen(process.env.PORT, function () {
 });
 
 
-app.get('/api/:fullDate', function(req, res){
-  let date = new Date()
-  let day = date.getDate()
-  let year = date.getFullYear()
-  let almostMonth = date.getMonth() + 1
-  let month = "0"+almostMonth
+app.get('/api/:input', function(req, res){
+  let user_input = req.params.input
 
-  let dateUtc = new Date().toUTCString()
-  let fullDate = year + "-" + month + "-" + day
-  
-  let unix = new Date(fullDate).getTime()
-  res.json({"unix":unix, "utc":dateUtc})
+  let unix = new Date(user_input).getTime()
+  let date = new Date(user_input).toUTCString()
+
+  res.json({'unix':unix , 'utc':date})
 })
-
-// app.get('/api/:unix', function(req, res){
-//   req.time = new Date().getTime()
-//   const unix = req.time
-//   res.json({"unix":unix, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"})
-// })
