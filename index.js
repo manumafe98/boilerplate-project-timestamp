@@ -30,3 +30,23 @@ app.get("/api/hello", function (req, res) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+app.get('/api/:date', function(req, res){
+  req.time = new Date().toString()
+  const date = req.time
+  res.json({"unix":1451001600000, "utc": date})
+})
+
+app.get('/api/1451001600000', function(req, res){
+  res.json({"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"})
+})
+
+// app.get('/now', function(req, res, next){
+//   req.time = new Date().toString();
+//   next();
+
+// app.get('/:word/echo', function(req, res){
+//   const word = req.params.word;
+//   res.json({echo: word})
+// })
