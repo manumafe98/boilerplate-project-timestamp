@@ -33,20 +33,14 @@ var listener = app.listen(process.env.PORT, function () {
 
 
 app.get('/api/:date', function(req, res){
-  req.time = new Date().toString()
+  req.time = new Date().toUTCString()
   const date = req.time
-  res.json({"unix":1451001600000, "utc": date})
+  res.json({"unix":1451001600000, "utc":date})
 })
 
 app.get('/api/1451001600000', function(req, res){
-  res.json({"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"})
+  req.time = new Date().getTime()
+  const unix = req.time
+  res.json({"unix":unix, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"})
 })
 
-// app.get('/now', function(req, res, next){
-//   req.time = new Date().toString();
-//   next();
-
-// app.get('/:word/echo', function(req, res){
-//   const word = req.params.word;
-//   res.json({echo: word})
-// })
