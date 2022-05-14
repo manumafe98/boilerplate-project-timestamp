@@ -35,7 +35,7 @@ var listener = app.listen(process.env.PORT, function () {
 app.get('/api/:input', function(req, res){
   let user_input = req.params.input
 
-  if(!user_input.match(/\d{5,}/)){
+  if(user_input.match(/\d{5,}/)){
     user_input = +user_input
   }
 
