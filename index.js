@@ -35,8 +35,23 @@ var listener = app.listen(process.env.PORT, function () {
 app.get('/api/:input', function(req, res){
   let user_input = req.params.input
 
-  let unix = new Date(user_input).getTime()
-  let date = new Date(user_input).toUTCString()
+  if(!user_input.match(/-/g)){
+    user_input = +user_input
+  }
 
-  res.json({'unix':unix , 'utc':date})
+  let unix = new Date(user_input).valueOf()
+  let utc = new Date(user_input).toUTCString()
+
+  if (utc == 'Invalid Date'){
+    res.json({error: utc})
+  }
+
+  res.json({'unix':unix , 'utc':utc})
+})
+
+app.get('/api/', function(req, res){
+  let unix = new Date().valueOf()
+  let utc = new Date().toUTCString()
+
+  res.json({'unix': unix, 'utc': utc})
 })
